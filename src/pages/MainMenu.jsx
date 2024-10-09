@@ -1,48 +1,40 @@
 import React, { useState } from "react";
-import {
-  Home,
-  Map,
-  Star,
-  Calendar,
-  User,
-  UserCircle,
-  Beer,
-  Coffee,
-  Wine,
-  GlassWater,
-} from "lucide-react";
-import './App.css'; // Asegúrate de importar el archivo CSS
+import { Home, Map, Star, Calendar, User, UserCircle } from "lucide-react";
 
 const IconButton = ({ icon, label, isActive, onClick }) => (
   <button
     onClick={onClick}
-    className={`icon-button ${isActive ? "active" : ""}`}
+    className={`flex flex-col items-center gap-1 h-auto py-2 px-3 rounded-md transition-colors ${
+      isActive ? "bg-amber-100 text-amber-800" : "text-gray-600 hover:bg-amber-50"
+    }`}
   >
     {icon}
-    <span className="icon-label">{label}</span>
+    <span className="text-xs">{label}</span>
   </button>
 );
 
-const BeerOption = ({ label, icon: Icon, onClick }) => (
-  <div className="beer-option" onClick={onClick}>
-    <div className="beer-icon">
-      <Icon size={64} />
+const BeerOption = ({ label, imageUrl, onClick }) => (
+  <div
+    className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center justify-center transition-all hover:scale-105 cursor-pointer"
+    onClick={onClick}
+  >
+    <div className="w-32 h-32 mb-4 overflow-hidden rounded-full">
+      <img src={imageUrl} alt={label} className="w-full h-full object-cover" />
     </div>
-    <span className="beer-label">{label}</span>
+    <span className="text-lg font-bold text-gray-700">{label}</span>
   </div>
 );
 
-const RutaBrewMenu = () => {
+const MainMenu = () => {
   const [activeTab, setActiveTab] = useState("Inicio");
 
   return (
-    <div className="app-container">
-      {/* Barra de menú */}
-      <nav className="navbar">
-        <div className="navbar-container">
-          <div className="navbar-content">
-            <span className="navbar-title">RutaBrew</span>
-            <div className="navbar-buttons">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-amber-50 to-amber-100">
+      <nav className="sticky top-0 bg-white/70 backdrop-blur-md shadow-md z-10">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex justify-between items-center h-16">
+            <span className="text-2xl font-bold text-amber-500">RutaBrew</span>
+            <div className="flex space-x-2">
               <IconButton
                 icon={<Home size={20} />}
                 label="Inicio"
@@ -84,36 +76,34 @@ const RutaBrewMenu = () => {
         </div>
       </nav>
 
-      {/* Contenido principal */}
-      <main className="main-content">
-        <h1 className="main-title">¿Qué quieres degustar hoy?</h1>
-        <div className="beer-options-container">
+      <main className="flex-grow max-w-7xl mx-auto px-4 py-8">
+        <h1 className="text-4xl font-bold text-amber-800 mb-8 text-center">¿Qué quieres tomar hoy?</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <BeerOption
             label="Cerveza Artesanal"
-            icon={Beer}
+            imageUrl="/placeholder.svg?height=128&width=128"
             onClick={() => console.log("Cerveza seleccionada")}
           />
           <BeerOption
-            label="Café de Especialidad"
-            icon={Coffee}
+            label="Stout"
+            imageUrl="/placeholder.svg?height=128&width=128"
             onClick={() => console.log("Café seleccionado")}
           />
           <BeerOption
-            label="Vino Local"
-            icon={Wine}
-            onClick={() => console.log("Vino seleccionado")}
+            label="Lager"
+            imageUrl="/placeholder.svg?height=128&width=128"
+            onClick={() => console.log("Lager seleccionado")}
           />
           <BeerOption
-            label="Cócteles Artesanales"
-            icon={GlassWater}
-            onClick={() => console.log("Cóctel seleccionado")}
+            label="Temporada"
+            imageUrl="/placeholder.svg?height=128&width=128"
+            onClick={() => console.log("Recomendacion seleccionada")}
           />
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="footer">
-        <div className="footer-container">
+      <footer className="bg-amber-800 text-amber-50 py-4 mt-8">
+        <div className="max-w-7xl mx-auto px-4 text-center">
           <p>&copy; 2024 RutaBrew. Todos los derechos reservados.</p>
         </div>
       </footer>
@@ -121,10 +111,4 @@ const RutaBrewMenu = () => {
   );
 };
 
-export default function App() {
-  return (
-    <div className="app">
-      <RutaBrewMenu />
-    </div>
-  );
-}
+export default MainMenu;
