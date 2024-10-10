@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Home, Map, Star, Calendar, User, UserCircle } from "lucide-react";
+import { useNavigate } from 'react-router-dom';
+
 
 const IconButton = ({ icon, label, isActive, onClick }) => (
   <button
@@ -15,13 +17,13 @@ const IconButton = ({ icon, label, isActive, onClick }) => (
 
 const BeerOption = ({ label, imageUrl, onClick }) => (
   <div
-    className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center justify-center transition-all hover:scale-105 cursor-pointer"
+    className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center justify-center transition-all hover:scale-105 cursor-pointer"
     onClick={onClick}
   >
-    <div className="w-32 h-32 mb-4 overflow-hidden rounded-full">
-      <img src={imageUrl} alt={label} className="w-full h-full object-cover" />
+    <div className="w-24 h-24 mb-2 overflow-hidden rounded-full bg-gray-200 flex items-center justify-center">
+      <img src={imageUrl} alt={label} className="w-full h-full object-cover" onError={(e) => e.target.src = '/placeholder.svg?height=96&width=96'} />
     </div>
-    <span className="text-lg font-bold text-gray-700">{label}</span>
+    <span className="text-lg font-bold text-gray-700 text-center">{label}</span>
   </div>
 );
 
@@ -29,44 +31,44 @@ const MainMenu = () => {
   const [activeTab, setActiveTab] = useState("Inicio");
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-amber-50 to-amber-100">
+<div className="w-screen  min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-amber-50 to-amber-100 p-4">
       <nav className="sticky top-0 bg-white/70 backdrop-blur-md shadow-md z-10">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <span className="text-2xl font-bold text-amber-500">RutaBrew</span>
-            <div className="flex space-x-2">
+            <div className="flex space-x-1 md:space-x-2 overflow-x-auto">
               <IconButton
-                icon={<Home size={20} />}
+                icon={<Home size={16} />}
                 label="Inicio"
                 isActive={activeTab === "Inicio"}
                 onClick={() => setActiveTab("Inicio")}
               />
               <IconButton
-                icon={<Map size={20} />}
+                icon={<Map size={16} />}
                 label="Explorar"
                 isActive={activeTab === "Explorar"}
                 onClick={() => setActiveTab("Explorar")}
               />
               <IconButton
-                icon={<Star size={20} />}
+                icon={<Star size={16} />}
                 label="Favoritos"
                 isActive={activeTab === "Favoritos"}
                 onClick={() => setActiveTab("Favoritos")}
               />
               <IconButton
-                icon={<Calendar size={20} />}
+                icon={<Calendar size={16} />}
                 label="Eventos"
                 isActive={activeTab === "Eventos"}
                 onClick={() => setActiveTab("Eventos")}
               />
               <IconButton
-                icon={<User size={20} />}
+                icon={<User size={16} />}
                 label="Perfil"
                 isActive={activeTab === "Perfil"}
                 onClick={() => setActiveTab("Perfil")}
               />
               <IconButton
-                icon={<UserCircle size={20} />}
+                icon={<UserCircle size={16} />}
                 label="Invitado"
                 isActive={activeTab === "Invitado"}
                 onClick={() => setActiveTab("Invitado")}
@@ -76,28 +78,29 @@ const MainMenu = () => {
         </div>
       </nav>
 
-      <main className="flex-grow max-w-7xl mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold text-amber-800 mb-8 text-center">¿Qué quieres tomar hoy?</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <main className="flex-grow w-full px-4 py-8">
+
+        <h1 className="text-3xl md:text-4xl font-bold text-amber-800 mb-8 text-center">¿Qué quieres tomar hoy?</h1>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           <BeerOption
             label="Cerveza Artesanal"
-            imageUrl="/placeholder.svg?height=128&width=128"
-            onClick={() => console.log("Cerveza seleccionada")}
+            imageUrl="/placeholder.svg?height=96&width=96"
+            onClick={() => navigate('/ruta-al-siguiente-menu')}
           />
           <BeerOption
             label="Stout"
-            imageUrl="/placeholder.svg?height=128&width=128"
-            onClick={() => console.log("Café seleccionado")}
+            imageUrl="/placeholder.svg?height=96&width=96"
+            onClick={() => navigate('/ruta-al-siguiente-menu')}
           />
           <BeerOption
             label="Lager"
-            imageUrl="/placeholder.svg?height=128&width=128"
-            onClick={() => console.log("Lager seleccionado")}
+            imageUrl="/placeholder.svg?height=96&width=96"
+            onClick={() => navigate('/ruta-al-siguiente-menu')}
           />
           <BeerOption
             label="Temporada"
-            imageUrl="/placeholder.svg?height=128&width=128"
-            onClick={() => console.log("Recomendacion seleccionada")}
+            imageUrl="/placeholder.svg?height=96&width=96"
+            onClick={() => navigate('/ruta-al-siguiente-menu')}
           />
         </div>
       </main>
