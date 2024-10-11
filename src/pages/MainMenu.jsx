@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Home, Map, Star, Calendar, User, UserCircle } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
+import AnimatedBackground from "../fondos/burbujas";
 
 
 const IconButton = ({ icon, label, isActive, onClick }) => (
@@ -29,11 +30,17 @@ const BeerOption = ({ label, imageUrl, onClick }) => (
 
 const MainMenu = () => {
   const [activeTab, setActiveTab] = useState("Inicio");
+  const navigate = useNavigate();
+
 
   return (
-<div className="w-screen  min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-amber-50 to-amber-100 p-4">
-      <nav className="sticky top-0 bg-white/70 backdrop-blur-md shadow-md z-10">
-        <div className="max-w-7xl mx-auto px-4">
+<div className="w-screen min-h-screen flex flex-col items-center justify-center relative p-4">
+<div className="absolute top-0 left-0 w-full h-full z-[-1]">
+    <AnimatedBackground />
+  </div>
+    
+      <nav className="w-screen  flex sticky top-0 bg-white/70 backdrop-blur-md shadow-md z-10">
+        <div className="   flex max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <span className="text-2xl font-bold text-amber-500">RutaBrew</span>
             <div className="flex space-x-1 md:space-x-2 overflow-x-auto">
@@ -81,36 +88,45 @@ const MainMenu = () => {
       <main className="flex-grow w-full px-4 py-8">
 
         <h1 className="text-3xl md:text-4xl font-bold text-amber-800 mb-8 text-center">¿Qué quieres tomar hoy?</h1>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-          <BeerOption
-            label="Cerveza Artesanal"
-            imageUrl="/placeholder.svg?height=96&width=96"
-            onClick={() => navigate('/ruta-al-siguiente-menu')}
-          />
+        <div className="  grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            <BeerOption
+                label="IPA"
+                imageUrl="/images/ipaoo.png"
+                onClick={() => navigate('/mapa-mexicali') // Redirige al mapa de Mexicali
+                  }
+                />
+
           <BeerOption
             label="Stout"
-            imageUrl="/placeholder.svg?height=96&width=96"
-            onClick={() => navigate('/ruta-al-siguiente-menu')}
+           imageUrl="/images/sstout.png"
+            onClick={() => navigate('/mapa-stout')}
           />
           <BeerOption
             label="Lager"
-            imageUrl="/placeholder.svg?height=96&width=96"
-            onClick={() => navigate('/ruta-al-siguiente-menu')}
+            imageUrl="/images/lager.png"
+            onClick={() => navigate('/mapa-lager')}
           />
           <BeerOption
-            label="Temporada"
-            imageUrl="/placeholder.svg?height=96&width=96"
+            label="Seltzers"
+            imageUrl="/images/seltzer.png"
             onClick={() => navigate('/ruta-al-siguiente-menu')}
           />
         </div>
       </main>
-
+      <div>
       <footer className="bg-amber-800 text-amber-50 py-4 mt-8">
-        <div className="max-w-7xl mx-auto px-4 text-center">
+        <div className=" w-screen max-w-7xl mx-auto px-4 text-center">
           <p>&copy; 2024 RutaBrew. Todos los derechos reservados.</p>
         </div>
       </footer>
+      </div>
     </div>
+
+
+
+
+
+    
   );
 };
 
