@@ -92,7 +92,7 @@ const MainMenu = () => {
 
       <main className="flex-grow w-full px-4 py-8">
 
-        <h1 className="text-3xl md:text-4xl font-bold text-amber-800 mb-8 text-center">¿Qué quieres tomar hoy?</h1>
+        <h1 className="text-3xl md:text-4xl font-bold text-amber-800 mb-8 text-center">Encuentra tu camino</h1>
         <div className="  grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             <BeerOption
                 label="IPA"
@@ -116,21 +116,13 @@ const MainMenu = () => {
             imageUrl="/images/seltzer.png"
             onClick={() => navigate('/ruta-al-siguiente-menu')}
           />
-        <div className="w-screen flex justify-center">
-          <button
-            onClick={() => navigate('/explorar')}
-            className="px-24 py-10 bg-amber-500 text-white font-semibold rounded-lg shadow-md hover:bg-amber-600 transition duration-300 ease-in-out"
-          >
-            Explorar
-          </button>
-        </div>
+        
         </div>
         <BeerOption
-                label="Descubrir"
-                imageUrl="/images/lupa.png"
-                onClick={() => navigate('/mapa-mexicali') // Redirige al mapa de Mexicali
-                  }
-                />
+               label="BeerMap"
+               imageUrl="/images/lupa.png"
+           onClick={() => navigate('/mapa-stout')}
+         />
       
         <motion.img
   src="/images/cerceamigo.png"
