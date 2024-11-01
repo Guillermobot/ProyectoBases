@@ -78,8 +78,8 @@ export default function MapMexicali() {
       </div>
       <div className="w-full max-w-4xl mx-auto my-8 bg-white/80 backdrop-blur-sm shadow-lg rounded-lg overflow-hidden">
         <div className="p-6">
-          <h1 className="text-2xl font-bold mb-2">Ruta de Cervecerías {currentStyle.toUpperCase()} en Mexicali</h1>
-          <p className="text-gray-600 mb-4">Descubre las mejores cervezas {currentStyle.toUpperCase()} de la ciudad</p>
+          <h1 className="text-2xl font-bold mb-2">Arma tu ruta {currentStyle.toUpperCase()} en Mexicali</h1>
+          <p className="text-gray-600 mb-4">Personaliza el camino para las mejores {currentStyle.toUpperCase()} de la ciudad</p>
           <div className="mb-4">
             {Object.keys(allBreweries).map((style) => (
               <button 

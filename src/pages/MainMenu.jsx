@@ -20,6 +20,35 @@ const IconButton = ({ icon, label, isActive, onClick }) => (
   </button>
 );
 
+const Buttonfill = ({ label, backgroundUrl, imageUrl, onClick }) => (
+  <div
+    className="relative bg-cover bg-center rounded-lg shadow-md p-4 flex flex-col items-center justify-center cursor-pointer transition-all hover:scale-105"
+    onClick={onClick}
+    style={{
+      backgroundImage: `url(${backgroundUrl})`,
+      height: '180px', // Ajusta la altura según prefieras
+    }}
+  >
+    {/* Imagen centrada */}
+    <div className="w-24 h-24 mb-2 overflow-hidden rounded-full bg-gray-200 flex items-center justify-center">
+      <img
+        src={imageUrl}
+        alt={label}
+        className="w-full h-full object-cover"
+        onError={(e) => (e.target.src = '/placeholder.svg?height=96&width=96')}
+      />
+    </div>
+    {/* Etiqueta de texto */}
+    <span className="text-lg font-bold text-white text-center">{label}</span>
+  </div>
+);
+
+
+
+
+
+
+
 const BeerOption = ({ label, imageUrl, onClick }) => (
   <div
     className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center justify-center transition-all hover:scale-105 cursor-pointer"
@@ -53,7 +82,7 @@ const MainMenu = () => {
                 icon={<Home size={16} />}
                 label="Inicio"
                 isActive={activeTab === "Inicio"}
-                onClick={() => setActiveTab("Inicio")}
+                onClick={() => navigate('/')}
               />
               <IconButton
                 icon={<Map size={16} />}
@@ -92,37 +121,49 @@ const MainMenu = () => {
 
       <main className="flex-grow w-full px-4 py-8">
 
-        <h1 className="text-3xl md:text-4xl font-bold text-amber-800 mb-8 text-center">Encuentra tu camino</h1>
+<Buttonfill
+  label="Tus Favoritas"
+  backgroundUrl="/images/cervezas.jpg"
+  imageUrl="/images/giflogos.gif"
+  onClick={() => navigate('/novedades')}
+/>
+      <h1 className="text-3xl md:text-4xl font-bold text-amber-800 mb-8 text-center">Explora tus cervecerias</h1>
+     
+      <BeerOption
+               label="Cerveza Rápida"
+               imageUrl="/images/lager.png"
+               onClick={() => navigate('/mapa-stout')}
+         />
+     <h1 className="text-3xl md:text-4xl font-bold text-amber-800 mb-8 text-center">Conoce</h1>
         <div className="  grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             <BeerOption
-                label="IPA"
-                imageUrl="/images/ipaoo.png"
-                onClick={() => navigate('/mapa-mexicali') // Redirige al mapa de Mexicali
+                label="Cervezas de Temporada"
+                imageUrl="/images/temporada.png"
+               
+                onClick={() => navigate('/novedades')
                   }
                 />
 
           <BeerOption
-            label="Stout"
-           imageUrl="/images/sstout.png"
-            onClick={() => navigate('/mapa-stout')}
+            label="Beermap"
+           imageUrl="/images/mmapa.png"
+           onClick={() => navigate('/mapa-mexicali') }
           />
           <BeerOption
-            label="Lager" 
-            imageUrl="/images/lager.png"
+            label="Eventos" 
+            imageUrl="/images/eventos.png"
             onClick={() => navigate('/mapa-lager')}
           />
           <BeerOption
-            label="Seltzers"
-            imageUrl="/images/seltzer.png"
+            label="Promociones"
+            imageUrl="/images/promociones.png"
             onClick={() => navigate('/ruta-al-siguiente-menu')}
           />
         
         </div>
-        <BeerOption
-               label="BeerMap"
-               imageUrl="/images/lupa.png"
-           onClick={() => navigate('/mapa-stout')}
-         />
+    
+    
+      
       
         <motion.img
   src="/images/cerceamigo.png"

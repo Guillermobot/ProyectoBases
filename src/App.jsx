@@ -4,6 +4,7 @@ import MainMenu from "./pages/MainMenu.jsx";
 import MapMexicali from "./pages/MapMexicali.jsx"; 
 import MapStout from "./pages/MapStout.jsx";
 import MapLager from "./pages/MapLager.jsx";
+import Novedades from "./pages/Novedades.jsx";
 
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<MainMenu />} />
         <Route path="/mapa-mexicali" element={<MapMexicali />} /> {/* Nueva ruta para el mapa */}
+        <Route path="/novedades" element={<Novedades />} />
         <Route path="/mapa-stout" element={<MapStout />} />
         <Route path="/mapa-lager" element={<MapLager />} />
       </Routes>
