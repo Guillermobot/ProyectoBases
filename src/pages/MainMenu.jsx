@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Home, Map, Star, Calendar, User, UserCircle } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import AnimatedBackground from "../fondos/burbujas";
+import { motion } from 'framer-motion'
+
+
+
 
 
 const IconButton = ({ icon, label, isActive, onClick }) => (
@@ -27,6 +31,7 @@ const BeerOption = ({ label, imageUrl, onClick }) => (
     <span className="text-lg font-bold text-gray-700 text-center">{label}</span>
   </div>
 );
+
 
 const MainMenu = () => {
   const [activeTab, setActiveTab] = useState("Inicio");
@@ -102,7 +107,7 @@ const MainMenu = () => {
             onClick={() => navigate('/mapa-stout')}
           />
           <BeerOption
-            label="Lager"
+            label="Lager" 
             imageUrl="/images/lager.png"
             onClick={() => navigate('/mapa-lager')}
           />
@@ -111,7 +116,32 @@ const MainMenu = () => {
             imageUrl="/images/seltzer.png"
             onClick={() => navigate('/ruta-al-siguiente-menu')}
           />
+        <div className="w-screen flex justify-center">
+          <button
+            onClick={() => navigate('/explorar')}
+            className="px-24 py-10 bg-amber-500 text-white font-semibold rounded-lg shadow-md hover:bg-amber-600 transition duration-300 ease-in-out"
+          >
+            Explorar
+          </button>
         </div>
+        </div>
+        <BeerOption
+                label="Descubrir"
+                imageUrl="/images/lupa.png"
+                onClick={() => navigate('/mapa-mexicali') // Redirige al mapa de Mexicali
+                  }
+                />
+      
+        <motion.img
+  src="/images/cerceamigo.png"
+  alt="cerceamigo"
+  className="absolute bottom-10 right-0 w-40 h-40 object-contain"
+  style={{ right: "20px" }}
+  initial={{ opacity: 0, scale: 0.5 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 0.5, delay: 0.2 }}
+/>
+        
       </main>
       <div>
       <footer className="bg-amber-800 text-amber-50 py-4 mt-8">

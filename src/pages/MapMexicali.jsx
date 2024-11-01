@@ -43,12 +43,21 @@ export default function MapMexicali() {
     }
 
     // Add new markers
+    const bounds = new maplibregl.LngLatBounds();  // To calculate bounds
     breweries.forEach(brewery => {
-      new maplibregl.Marker({ color: '#FF8C00' })
+      const marker = new maplibregl.Marker({ color: '#FF8C00' })
         .setLngLat(brewery.coordinates)
         .setPopup(new maplibregl.Popup().setHTML(`<h3>${brewery.name}</h3>`))
         .addTo(map);
+
+      bounds.extend(brewery.coordinates);  // Add coordinates to bounds
     });
+
+    // Adjust map to fit all markers
+    if (breweries.length > 0) {
+      map.fitBounds(bounds, { padding: 50 });  // Adjust padding as necessary
+    }
+
   }, [map, breweries]);
 
   useEffect(() => {
