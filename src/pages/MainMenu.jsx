@@ -121,12 +121,17 @@ const MainMenu = () => {
 
       <main className="flex-grow w-full px-4 py-8">
 
-<Buttonfill
-  label="Tus Favoritas"
-  backgroundUrl="/images/cervezas.jpg"
-  imageUrl="/images/giflogos.gif"
-  onClick={() => navigate('/novedades')}
-/>
+      <Buttonfill
+        label="Tus Favoritas"
+        backgroundUrl="/images/cervezas.jpg"
+        imageUrl="/images/giflogos.gif"
+        onClick={() => navigate('/novedades')}
+      />
+  
+     
+    
+  
+
       <h1 className="text-3xl md:text-4xl font-bold text-amber-800 mb-8 text-center">Explora tus cervecerias</h1>
      
       <BeerOption
@@ -140,7 +145,7 @@ const MainMenu = () => {
                 label="Cervezas de Temporada"
                 imageUrl="/images/temporada.png"
                
-                onClick={() => navigate('/novedades')
+                onClick={() => navigate('/temporada')
                   }
                 />
 
@@ -152,7 +157,7 @@ const MainMenu = () => {
           <BeerOption
             label="Eventos" 
             imageUrl="/images/eventos.png"
-            onClick={() => navigate('/mapa-lager')}
+            onClick={() => navigate('/eventos')}
           />
           <BeerOption
             label="Promociones"

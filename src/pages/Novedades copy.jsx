@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Beer, Calendar, MapPin } from "lucide-react";
 
 const AnimatedBackground = () => (
-  <div className="fixed inset-0 z-[-1] bg-gradient-to-br from-green-50 to-white-200 animate-gradient-x"></div>
+  <div className=" w-screen fixed inset-0 z-[-1] bg-gradient-to-br from-green-50 to-white-200 animate-gradient-x"></div>
 );
 
 const NovedadCard = ({ title, imageUrl, description, icon, category, fecha, onClick }) => (
   <div
-    className="group relative w-full overflow-hidden cursor-pointer rounded-lg shadow-lg"
+    className=" group relative w-full  overflow-hidden cursor-pointer rounded-lg shadow-lg"
     onClick={onClick}
   >
     {/* Imagen Principal */}
@@ -34,7 +34,7 @@ const NovedadCard = ({ title, imageUrl, description, icon, category, fecha, onCl
       </div>
       
       {/* Caja de Categoría */}
-      <div className="bg-red-600 p-2 transform -skew-x-12">
+      <div className="w-screen bg-red-600 p-2 transform -skew-x-12">
         <span className="text-white font-bold text-sm uppercase block transform skew-x-12">
           {category}
         </span>
@@ -118,17 +118,17 @@ const Novedades = () => {
   ];
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-start relative">
+    <div className="w-screen w-full min-h-screen flex flex-col items-center justify-start relative">
       <AnimatedBackground />
-      <header className={`w-full sticky top-0 z-10 transition-all duration-300 ${
+      <header className={` w-screen w-full sticky top-0 z-10 transition-all duration-300 ${
         scrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-transparent'
       }`}>
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex justify-between items-center h-16">
-            <span className="text-2xl font-bold text-amber-800">RutaBrew</span>
-            <nav className="hidden md:flex items-center gap-4">
+        <div className="w-screen max-w-7xl mx-auto px-4">
+          <div className="w-screen flex justify-between items-center h-16">
+            <span className="w-screen text-2xl font-bold text-amber-800">RutaBrew</span>
+            <nav className="w-screen hidden md:flex items-center gap-4">
               {['Inicio', 'Explorar', 'Favoritos', 'Eventos'].map((item) => (
-                <button key={item} className="text-amber-800 hover:text-amber-600 transition-colors">
+                <button key={item} className="w-screen text-amber-800 hover:text-amber-600 transition-colors">
                   {item}
                 </button>
               ))}
@@ -137,15 +137,15 @@ const Novedades = () => {
         </div>
       </header>
 
-      <main className="flex-grow w-full px-4 py-12 max-w-7x1 mx-auto">
-        <h1 className="text-4xl md:text-5xl font-black text-amber-800 mb-8 text-center italic transform -skew-x-12 uppercase">
+      <main className="w-screen flex-grow w-full px-4 py-12 max-w-7x1 mx-auto">
+        <h1 className="w-screen text-4xl md:text-5xl font-black text-amber-800 mb-8 text-center italic transform -skew-x-12 uppercase">
           EXPLORA
         </h1>
-        <p className="text-amber-600 text-center max-w-2xl mx-auto mb-12">
+        <p className="w-screen text-amber-600 text-center max-w-2xl mx-auto mb-12">
           Descubre nuestras últimas novedades en cervezas artesanales, eventos especiales y nuevos lugares en la ruta cervecera.
         </p>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="w-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {novedades.map((novedad, index) => (
             <NovedadCard
               key={index}
@@ -161,8 +161,8 @@ const Novedades = () => {
         </div>
       </main>
 
-      <footer className="bg-amber-800 text-amber-50 py-6 w-full mt-12">
-        <div className="max-w-7xl mx-auto px-4 text-center">
+      <footer className="w-screen bg-amber-800 text-amber-50 py-6 w-full mt-12">
+        <div className="w-screen max-w-7xl mx-auto px-4 text-center">
           <p>&copy; 2024 RutaBrew. Todos los derechos reservados.</p>
         </div>
       </footer>
