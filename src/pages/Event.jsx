@@ -1,41 +1,37 @@
-// Novedades.js
 import React from "react";
 import { useNavigate } from 'react-router-dom';
-import AnimatedBackground from "../fondos/burbujas"; // Usa el fondo animado
-import { q } from "framer-motion/client";
+import AnimatedBackground from "../fondos/burbujas"; // Fondo animado
 
-// Definimos el componente NovedadCard
-const NovedadCard = ({ title, imageUrl, description, onClick }) => (
+// Definimos el componente ListaCard
+const ListaCard = ({ title, description, price, onClick }) => (
   <div
     className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center justify-center transition-all hover:scale-105 cursor-pointer"
     onClick={onClick}
   >
-    <div className="w-24 h-24 mb-2 overflow-hidden rounded-full bg-gray-200 flex items-center justify-center">
-      <img src={imageUrl} alt={title} className="w-full h-full object-cover" onError={(e) => e.target.src = '/placeholder.svg?height=96&width=96'} />
-    </div>
     <h3 className="text-lg font-bold text-gray-700 text-center">{title}</h3>
     <p className="text-sm text-gray-600 text-center">{description}</p>
+    <p className="text-lg font-semibold text-gray-900 text-center">${price}</p>
   </div>
 );
 
 const Novedades = () => {
   const navigate = useNavigate();
 
-  // Lista de novedades con título, imagen, y descripción
+  // Lista de novedades con nombre, descripción y precio
   const novedades = [
     {
       title: "Nueva Stout Imperial",
-      imageUrl: "/images/stout-imperial.png",
       description: "Descubre el sabor de nuestra última creación.",
+      price: "10.99",
       onClick: () => navigate('/stout-imperial')
     },
     {
       title: "Festival de Cerveza",
-      imageUrl: "/images/festival.png",
       description: "Únete a nosotros para celebrar en grande.",
+      price: "20.00",
       onClick: () => navigate('/festival-cerveza')
     },
-    // Puedes añadir más novedades aquí
+    // Puedes añadir más novedades aquí con su nombre, descripción y precio
   ];
 
   return (
@@ -61,11 +57,11 @@ const Novedades = () => {
         {/* Lista de novedades */}
         <div className="w-screen grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {novedades.map((novedad, index) => (
-            <NovedadCard
+            <ListaCard
               key={index}
               title={novedad.title}
-              imageUrl={novedad.imageUrl}
               description={novedad.description}
+              price={novedad.price}
               onClick={novedad.onClick}
             />
           ))}

@@ -2,7 +2,7 @@
   "name": "rutaoficial",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,9 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
     "framer-motion": "^11.11.7",
     "lucide-react": "^0.451.0",
     "maplibre-gl": "^4.7.1",
+    "mysql2": "^3.11.4",
     "pigeon-maps": "^0.21.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
