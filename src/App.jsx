@@ -6,6 +6,7 @@ import MapStout from "./pages/MapStout.jsx";
 import Novedades from "./pages/Novedades.jsx";
 import Eventos from "./pages/Event.jsx";
 import CervezasTemporales from "./pages/CervezasTemporada.jsx";
+import Sarmiento from  "./pages/cervecerias/sarmiento.jsx";
 
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/novedades" element={<Novedades />} />
         <Route path="/temporada" element={<CervezasTemporales />} />
         <Route path="/eventos" element={<Eventos/>} />
+        <Route path="/sarmiento" element={<Sarmiento/>} />
         <Route path="/mapa-stout" element={<MapStout />} />
        
       </Routes>
