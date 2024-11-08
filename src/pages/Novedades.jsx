@@ -70,7 +70,7 @@ const Novedades = () => {
       description: "Descubre el sabor de nuestra última creación.",
       category: "Lugar",
       fecha: "Disponible ahora",
-      onClick: () => console.log("Navegando a Nueva Stout Imperial")
+      onClick: () => navigate('/averno')
     },
       {
         title: "El Sarmiento Tap Room",
@@ -89,7 +89,7 @@ const Novedades = () => {
       description: "Nueva cervecería artesanal en la ruta.",
       category: "Lugar",
       fecha: "Recién abierto",
-      onClick: () => console.log("Navegando a CheveNico")
+      onClick: () => navigate('/wendlandt')
     },
     {
       title: "Bastards Tavern",

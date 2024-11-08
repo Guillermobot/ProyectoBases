@@ -1,65 +1,51 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-export default function SarmientoPage() {
+export default function WendlatndtPage() {
   const comidaRef = useRef(null);
   const bebidaRef = useRef(null);
   const merchRef = useRef(null);
+
+  const [novedades, setNovedades] = useState([]); // Estado para almacenar los artículos
+  const [loading, setLoading] = useState(true); // Estado de carga
+  const [error, setError] = useState(null); // Estado para manejar errores
 
   const scrollToSection = (ref) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // Lista de secciones con sus respectivas propiedades
-  const sections = [
-    {
-      ref: comidaRef,
-      title: 'American Extra Stout',
-      description: '6% - Cerveza con oscura con toques a café',
-      imgSrc: '/images/stoutsarmiento.jpg',
-      alt: 'Comida'
-    },
-    {
-      ref: bebidaRef,
-      title: 'Hazy Ipa',
-      description: '8% - Cerveza lupulosa con toques frescos ',
-      imgSrc: '/images/hazyipasarmiento.jpg',
-      alt: 'Bebida'
-    },
-    {
-      ref: bebidaRef,
-      title: 'American IPA',
-      description: '8% - Cerveza fresca con toques ...',
-      imgSrc: '/images/americanipa.jpg',
-      alt: 'Bebida'
-    },
-    {
-      ref: merchRef,
-      title: 'Watermelon IPA',
-      description: '7.9% - Refrescante cerveza lupulada con toques a sandía',
-      imgSrc: '/images/watermelonipa.jpg',
-      alt: 'Merch'
-    },  {
-      ref: bebidaRef,
-      title: 'Slushie Sandia',
-      description: 'El sarmiento realiza el destape de una nueva cerveza de temporada',
-      imgSrc: '/images/slushie.jpg',
-      alt: 'Bebida'
-    },
-    {
-      ref: bebidaRef,
-      title: 'Slushie Lemon',
-      description: 'El sarmiento realiza el destape de una nueva cerveza de temporada',
-      imgSrc: '/images/slushie.jpg',
-      alt: 'Bebida'
-    },
-    {
-      ref: merchRef,
-      title: '¡NUEVA MERCANCÍA!',
-      description: 'Descubre nuestra nueva colección de productos',
-      imgSrc: '/images/stoutsarmiento.jpg',
-      alt: 'Merch'
-    }
-  ];
+  // Fetching data when component mounts
+  useEffect(() => {
+    fetch('http://localhost:3000/menu-items')
+      .then((response) => response.json())
+      .then((data) => {
+        setNovedades(data); // Guardamos los artículos en el estado
+        setLoading(false); // Detenemos el estado de carga
+      })
+      .catch((error) => {
+        console.error('Error al obtener los datos:', error);
+        setError('No se pudieron cargar los datos. Intente nuevamente más tarde.');
+        setLoading(false);
+      });
+  }, []);
+
+  // Si está cargando, mostrar el mensaje
+  if (loading) {
+    return <div className="text-center text-xl">Cargando...</div>;
+  }
+
+  // Si hay un error, mostrar mensaje de error
+  if (error) {
+    return <div className="text-center text-xl text-red-500">{error}</div>;
+  }
+
+  // Lista de secciones con sus respectivas propiedades usando los datos obtenidos
+  const sections = novedades.map((item) => ({
+    ref: item.tipo === 'Comida' ? comidaRef : item.tipo === 'Bebida' ? bebidaRef : merchRef, // Determina la referencia en base al tipo
+    title: item.nombre,
+    description: item.descripcion,
+    imgSrc: item.imgSrc || '/images/default.jpg', // Imágen predeterminada en caso de no tenerla
+    alt: item.nombre
+  }));
 
   return (
     <div 
@@ -71,7 +57,7 @@ export default function SarmientoPage() {
       {/* Header Image and Logo */}
       <div className="relative h-[300px] w-full">
         <img
-          src="/images/Sarmientowall.png"
+          src="/images/WENDLANDT.jpg"
           alt="El Sarmiento Tap Room"
           className="w-full h-full object-cover"
         />

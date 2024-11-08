@@ -7,7 +7,8 @@ import Novedades from "./pages/Novedades.jsx";
 import Eventos from "./pages/Event.jsx";
 import CervezasTemporales from "./pages/CervezasTemporada.jsx";
 import Sarmiento from  "./pages/cervecerias/sarmiento.jsx";
-
+import Averno from "./pages/cervecerias/averno.jsx";
+import Wendlandt from "./pages/cervecerias/wendlandt.jsx";
 
 export default function App() {
   return (
@@ -20,6 +21,8 @@ export default function App() {
         <Route path="/temporada" element={<CervezasTemporales />} />
         <Route path="/eventos" element={<Eventos/>} />
         <Route path="/sarmiento" element={<Sarmiento/>} />
+        <Route path="/wendlandt" element={<Wendlandt/>} />
+        <Route path="/averno" element={<Averno/>} />
         <Route path="/mapa-stout" element={<MapStout />} />
        
       </Routes>

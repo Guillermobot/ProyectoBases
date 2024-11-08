@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-export default function SarmientoPage() {
+export default function AvernoPage() {
   const comidaRef = useRef(null);
   const bebidaRef = useRef(null);
   const merchRef = useRef(null);
@@ -71,7 +71,7 @@ export default function SarmientoPage() {
       {/* Header Image and Logo */}
       <div className="relative h-[300px] w-full">
         <img
-          src="/images/Sarmientowall.png"
+          src="/images/avernocc.jpg"
           alt="El Sarmiento Tap Room"
           className="w-full h-full object-cover"
         />
