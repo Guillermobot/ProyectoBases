@@ -49,6 +49,19 @@ app.get("/menu-items", (req, res) => {
   );
 });
 
+app.get("/cervezas", (req, res) => {
+  db.query(
+    "SELECT nombre, tipo, precio FROM cervezas WHERE cerveceria_id=2",
+    (err, results) => {
+      if (err) {
+        console.error("Error al hacer la consulta:", err);
+        return res.status(500).send("Error al obtener los elementos del menú");
+      }
+      res.json(results); // Responder con los resultados en formato JSON
+    }
+  );
+});
+
 // Iniciar el servidor
 app.listen(port, () => {
   console.log(`Servidor Express escuchando en el puerto ${port}`);

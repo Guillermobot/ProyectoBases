@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 export default function WendlatndtPage() {
-  const comidaRef = useRef(null);
-  const bebidaRef = useRef(null);
-  const merchRef = useRef(null);
+  const cervezaRef = useRef(null);
 
   const [novedades, setNovedades] = useState([]); // Estado para almacenar los artículos
   const [loading, setLoading] = useState(true); // Estado de carga
@@ -15,7 +13,7 @@ export default function WendlatndtPage() {
 
   // Fetching data when component mounts
   useEffect(() => {
-    fetch('http://localhost:3000/menu-items')
+    fetch('http://localhost:3000/cervezas')
       .then((response) => response.json())
       .then((data) => {
         setNovedades(data); // Guardamos los artículos en el estado
@@ -40,16 +38,15 @@ export default function WendlatndtPage() {
 
   // Lista de secciones con sus respectivas propiedades usando los datos obtenidos
   const sections = novedades.map((item) => ({
-    ref: item.tipo === 'Comida' ? comidaRef : item.tipo === 'Bebida' ? bebidaRef : merchRef, // Determina la referencia en base al tipo
+    ref: cervezaRef, // Determina la referencia
     title: item.nombre,
-    description: item.descripcion,
-    imgSrc: item.imgSrc || '/images/default.jpg', // Imágen predeterminada en caso de no tenerla
-    alt: item.nombre
+    type: item.tipo,
+    price: item.precio,
   }));
 
   return (
     <div 
-      className="min-h-screen w-full bg-zinc-900 bg-cover bg-center text-white font-sans"
+      className="min-h-screen w-screen bg-zinc-900 bg-cover bg-center text-white font-sans"
       style={{
         backgroundImage: ""
       }}
@@ -65,15 +62,12 @@ export default function WendlatndtPage() {
 
       {/* Navigation Buttons */}
       <div className="flex gap-2 p-2 bg-transparent sticky top-0 z-10 max-w-4xl mx-auto">
-        {['Comida', 'Bebida', 'Merch'].map((item, index) => (
-          <button
-            key={item}
-            onClick={() => scrollToSection([comidaRef, bebidaRef, merchRef][index])}
-            className="flex-1 py-3 px-4 bg-[#A67C52] text-white border-none rounded-lg cursor-pointer text-xl font-bold hover:bg-[#8B6642] transition-colors"
-          >
-            {item}
-          </button>
-        ))}
+        <button
+          onClick={() => scrollToSection(cervezaRef)}
+          className="flex-1 py-3 px-4 bg-[#A67C52] text-white border-none rounded-lg cursor-pointer text-xl font-bold hover:bg-[#8B6642] transition-colors"
+        >
+          Cervezas
+        </button>
       </div>
 
       {/* Scrollable Content */}
@@ -81,18 +75,10 @@ export default function WendlatndtPage() {
         {/* Renderizado de cada sección dinámicamente */}
         {sections.map((section, index) => (
           <div ref={section.ref} key={index} className="bg-black/60 backdrop-blur-sm rounded-lg overflow-hidden">
-            <div className="flex items-center">
-              <img
-                src={section.imgSrc}
-                alt={section.alt}
-                className="w-40 h-40 object-cover"
-              />
-              <div className="p-6 flex-1">
-                <h2 className="text-3xl font-bold mb-2">{section.title}</h2>
-                <p className="text-gray-200 text-lg">
-                  {section.description}
-                </p>
-              </div>
+            <div className="p-6 flex-1">
+              <h2 className="text-3xl font-bold mb-2">{section.title}</h2>
+              <p className="text-gray-200 text-lg">Tipo: {section.type}</p>
+              <p className="text-gray-200 text-lg">Precio: ${section.price}</p>
             </div>
           </div>
         ))}

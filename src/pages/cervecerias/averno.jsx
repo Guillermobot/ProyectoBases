@@ -63,7 +63,7 @@ export default function AvernoPage() {
 
   return (
     <div 
-      className="min-h-screen w-full bg-zinc-900 bg-cover bg-center text-white font-sans"
+      className="min-h-screen w-screen bg-zinc-900 bg-cover bg-center text-white font-sans"
       style={{
         backgroundImage: ""
       }}
