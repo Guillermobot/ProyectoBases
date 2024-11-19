@@ -120,7 +120,7 @@ const MainMenu = () => {
       </nav>
 
       <main className="flex-grow w-full px-4 py-8">
-
+<h1 className="text-3xl md:text-4xl font-bold text-amber-800 mb-8 text-center">Explora tus cervecerias favoritas</h1>
       <Buttonfill
         label="Tus Favoritas"
         backgroundUrl="/images/cervezas.jpg"
@@ -131,54 +131,36 @@ const MainMenu = () => {
      
     
   
-
-      <h1 className="text-3xl md:text-4xl font-bold text-amber-800 mb-8 text-center">Explora tus cervecerias</h1>
-     
+  <h1 className="text-3xl md:text-4xl font-bold text-amber-800  text-center">Encuentra esa cerveza</h1>
+  
       <BeerOption
-               label="Cerveza Rápida"
+               label="Catalogo completo"
                imageUrl="/images/lager.png"
                onClick={() => navigate('/mapa-stout')}
          />
-     <h1 className="text-3xl md:text-4xl font-bold text-amber-800 mb-8 text-center">Conoce</h1>
-        <div className="  grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+
+
+
+<h1 className="text-3xl md:text-4xl font-bold text-amber-800  text-center">Opciones extra</h1>
+    
+       
             <BeerOption
-                label="Cervezas de Temporada"
-                imageUrl="/images/temporada.png"
+                label="Reportes"
+                imageUrl="/images/reportes.jpg"
                
-                onClick={() => navigate('/temporada')
+                onClick={() => navigate('/reportes')
                   }
                 />
+               
 
-          <BeerOption
-            label="Beermap"
-           imageUrl="/images/mmapa.png"
-           onClick={() => navigate('/mapa-mexicali') }
-          />
-          <BeerOption
-            label="Eventos" 
-            imageUrl="/images/eventos.png"
-            onClick={() => navigate('/eventos')}
-          />
-          <BeerOption
-            label="Promociones"
-            imageUrl="/images/promociones.png"
-            onClick={() => navigate('/ruta-al-siguiente-menu')}
-          />
+          
         
-        </div>
+       
     
     
       
       
-        <motion.img
-  src="/images/cerceamigo.png"
-  alt="cerceamigo"
-  className="absolute bottom-10 right-0 w-40 h-40 object-contain"
-  style={{ right: "20px" }}
-  initial={{ opacity: 0, scale: 0.5 }}
-  animate={{ opacity: 1, scale: 1 }}
-  transition={{ duration: 0.5, delay: 0.2 }}
-/>
+        
         
       </main>
       <div>

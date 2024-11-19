@@ -72,15 +72,7 @@ const Novedades = () => {
       fecha: "Disponible ahora",
       onClick: () => navigate('/averno')
     },
-      {
-        title: "El Sarmiento Tap Room",
-        icon: <Calendar className="h-5 w-5 text-amber-800" />,
-        imageUrl: "/images/Sarmientowall.png",
-        description: "Únete a nosotros para celebrar en grande.",
-        category: "Lugar",
-        fecha: "15-17 Marzo",
-        onClick: () => navigate('/sarmiento') // Aquí faltaba el paréntesis de cierre
-      },
+     
       
     {
       title: "Wendlatndt Tasting Room",
@@ -91,33 +83,25 @@ const Novedades = () => {
       fecha: "Recién abierto",
       onClick: () => navigate('/wendlandt')
     },
+     {
+        title: "El Sarmiento Tap Room",
+        icon: <Calendar className="h-5 w-5 text-amber-800" />,
+        imageUrl: "/images/Sarmientowall.png",
+        description: "Únete a nosotros para celebrar en grande.",
+        category: "Lugar",
+        fecha: "15-17 Marzo",
+        onClick: () => navigate('/sarmiento') // Aquí faltaba el paréntesis de cierre
+      },
     {
-      title: "Bastards Tavern",
-      icon: <Beer className="h-5 w-5 text-amber-800" />,
-      imageUrl: "/images/bastardswall.png",
-      description: "Descubre el sabor de nuestra última creación.",
-      category: "Lugar",
-      fecha: "Disponible ahora",
-      onClick: () => console.log("Navegando a Nueva Stout Imperial")
-    },
-    {
-      title: "Urbana",
+      title: "Icono",
       icon: <Calendar className="h-5 w-5 text-amber-800" />,
-      imageUrl: "/images/urbanawall.png",
+      imageUrl: "/images/barraicono.jpg",
       description: "Únete a nosotros para celebrar en grande.",
       category: "Lugar",
       fecha: "15-17 Marzo",
-      onClick: () => console.log("Navegando a Festival de Cerveza")
+      onClick: () => navigate('/icono')
     },
-    {
-      title: "Amante Brewing Company",
-      icon: <MapPin className="h-5 w-5 text-amber-800" />,
-      imageUrl: "/images/amantewall.png",
-      description: "Nueva cervecería artesanal en la ruta.",
-      category: "Lugar",
-      fecha: "Recién abierto",
-      onClick: () => console.log("Navegando a CheveNico")
-    }
+   
   ];
 
   return (

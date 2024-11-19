@@ -30,15 +30,18 @@ db.connect((err) => {
   console.log("Conectado a la base de datos MySQL");
 });
 
-// Definir una ruta de ejemplo
+// Ruta de ejemplo
 app.get("/", (req, res) => {
   res.send("¡Hola Mundo!");
 });
 
-// Ruta para obtener los elementos del menú desde la base de datos
-app.get("/menu-items", (req, res) => {
+// Ruta dinámica para obtener cervezas de una cervecería específica
+app.get("/cervezas/:cerveceriaId", (req, res) => {
+  const cerveceriaId = req.params.cerveceriaId; // Obtener el ID de cervecería desde la URL
+
   db.query(
-    "SELECT nombre, descripcion, precio FROM menu_items",
+    "SELECT nombre, estilo, tipo, porcentaje_alcohol, precio FROM cervezas WHERE cerveceria_id = ?",
+    [cerveceriaId], // Usamos el parámetro cervecería para hacer la consulta
     (err, results) => {
       if (err) {
         console.error("Error al hacer la consulta:", err);
@@ -49,17 +52,23 @@ app.get("/menu-items", (req, res) => {
   );
 });
 
-app.get("/cervezas", (req, res) => {
-  db.query(
-    "SELECT nombre, tipo, precio FROM cervezas WHERE cerveceria_id=2",
-    (err, results) => {
-      if (err) {
-        console.error("Error al hacer la consulta:", err);
-        return res.status(500).send("Error al obtener los elementos del menú");
-      }
-      res.json(results); // Responder con los resultados en formato JSON
+// Ruta para obtener el promedio de calificaciones por cervecería
+app.get("/reportes/calificaciones", (req, res) => {
+  const query = `
+    SELECT cerveceria_id, nombre AS cerveceria, AVG(calificacion) AS promedio_calificacion, COUNT(calificacion) AS total_calificaciones
+    FROM cervezas
+    WHERE cerveceria_id IS NOT NULL
+    GROUP BY cerveceria_id, nombre
+    ORDER BY promedio_calificacion DESC
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error al hacer la consulta:", err);
+      return res.status(500).send("Error al obtener las calificaciones");
     }
-  );
+    res.json(results); // Devolver los resultados en formato JSON
+  });
 });
 
 // Iniciar el servidor

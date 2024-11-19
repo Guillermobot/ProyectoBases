@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 
-export default function SarmientoPage() {
+export default function IconoPage() {
   const cervezaRef = useRef(null);
   const comidaRef = useRef(null);
   const merchRef = useRef(null);
@@ -15,7 +16,7 @@ export default function SarmientoPage() {
 
   // Fetching data when component mounts
   useEffect(() => {
-    fetch('http://localhost:3000/cervezas/2') // Aquí se usa el ID 2 para Sarmiento
+    fetch('http://localhost:3000/cervezas/4') // Aquí se usa el ID 4 para Icono
       .then((response) => response.json())
       .then((data) => {
         setCervezas(data); // Guardamos las cervezas en el estado
@@ -48,8 +49,8 @@ export default function SarmientoPage() {
         {/* Restoring original Header Image */}
         <div className="relative h-[300px] w-full">
           <img
-            src="/images/Sarmientowall.png" // Mantengo la imagen de encabezado de Wendlandt
-            alt="Wendlandt Cervecería"
+            src="/images/icono.jpg" // Cambiar la imagen de encabezado a una para la cervecería Icono
+            alt="Icono Cervecería"
             className="w-full h-full object-cover"
           />
         </div>
@@ -93,7 +94,7 @@ export default function SarmientoPage() {
             ))}
           </div>
 
-          
+        
         </div>
       </div>
     </div>
