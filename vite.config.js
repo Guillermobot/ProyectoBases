@@ -1,24 +1,31 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import path from 'path'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
 
 export default defineConfig({
   plugins: [react()],
-  base: '/', // Asegura que las rutas base sean correctas
+  base: "/",
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'), // Permite importar desde la carpeta src usando @
+      "@": path.resolve(__dirname, "./src"),
     },
   },
-  publicDir: 'public', // Asegura que los archivos estáticos se sirvan correctamente
+  publicDir: "public",
   build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
+    outDir: "dist",
+    assetsDir: "assets",
     sourcemap: true,
   },
   server: {
     port: 5173,
-    host: true, // Permite acceder desde otros dispositivos en la red local
+    host: true,
     strictPort: true,
+    proxy: {
+      "/api": {
+        target: process.env.VITE_API_URL,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
   },
-})
+});

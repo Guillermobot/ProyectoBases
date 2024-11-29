@@ -34,6 +34,111 @@ db.connect((err) => {
 app.get("/", (req, res) => {
   res.send("¡Hola Mundo!");
 });
+app.get("/cervezas/mas-caras", (req, res) => {
+  const query = `
+    SELECT c1.cerveceria_id, c1.nombre, c1.precio
+    FROM cervezas c1
+    INNER JOIN (
+      SELECT cerveceria_id, MAX(precio) as max_precio
+      FROM cervezas
+      GROUP BY cerveceria_id
+    ) c2 ON c1.cerveceria_id = c2.cerveceria_id AND c1.precio = c2.max_precio
+    ORDER BY c1.precio DESC
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error al obtener cervezas más caras:", err);
+      return res.status(500).json({ error: "Error al obtener datos" });
+    }
+    res.json(results);
+  });
+});
+// Ruta para obtener top 5 cervezas mejor votadas (ya existente)
+app.get("/cervezas/top", (req, res) => {
+  const query = `
+    SELECT 
+      cerveceria_id,
+      nombre,
+      calificacion
+    FROM cervezas
+    ORDER BY calificacion DESC
+    LIMIT 5
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error al obtener top cervezas:", err);
+      return res.status(500).json({ error: "Error al obtener datos" });
+    }
+    res.json(results);
+  });
+});
+
+// Nueva ruta para obtener las cervezas más baratas por cervecería
+app.get("/cervezas/mas-baratas", (req, res) => {
+  const query = `
+    SELECT c1.cerveceria_id, c1.nombre, c1.precio
+    FROM cervezas c1
+    INNER JOIN (
+      SELECT cerveceria_id, MIN(precio) as min_precio
+      FROM cervezas
+      GROUP BY cerveceria_id
+    ) c2 ON c1.cerveceria_id = c2.cerveceria_id AND c1.precio = c2.min_precio
+    ORDER BY c1.precio ASC
+    LIMIT 5
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error al obtener cervezas más baratas:", err);
+      return res.status(500).json({ error: "Error al obtener datos" });
+    }
+    res.json(results);
+  });
+});
+
+// Nueva ruta para obtener las cervezas con mayor contenido alcohólico
+app.get("/cervezas/mayor-alcohol", (req, res) => {
+  const query = `
+    SELECT 
+      cerveceria_id,
+      nombre,
+      porcentaje_alcohol
+    FROM cervezas
+    ORDER BY porcentaje_alcohol DESC
+    LIMIT 5
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error al obtener cervezas con mayor alcohol:", err);
+      return res.status(500).json({ error: "Error al obtener datos" });
+    }
+    res.json(results);
+  });
+});
+
+// Ruta para obtener top 5 cervezas mejor votadas
+app.get("/cervezas/top", (req, res) => {
+  const query = `
+    SELECT 
+      cerveceria_id,
+      nombre,
+      calificacion
+    FROM cervezas
+    ORDER BY calificacion DESC
+    LIMIT 5
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error al obtener top cervezas:", err);
+      return res.status(500).json({ error: "Error al obtener datos" });
+    }
+    res.json(results);
+  });
+});
 
 // Ruta dinámica para obtener cervezas de una cervecería específica
 app.get("/cervezas/:cerveceriaId", (req, res) => {

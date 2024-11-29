@@ -6,21 +6,20 @@ export default function IconoPage() {
   const comidaRef = useRef(null);
   const merchRef = useRef(null);
 
-  const [cervezas, setCervezas] = useState([]); // Cambié 'novedades' por 'cervezas'
-  const [loading, setLoading] = useState(true); // Estado de carga
-  const [error, setError] = useState(null); // Estado para manejar errores
+  const [cervezas, setCervezas] = useState([]); 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); // 
 
   const scrollToSection = (ref) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // Fetching data when component mounts
   useEffect(() => {
-    fetch('http://localhost:3000/cervezas/4') // Aquí se usa el ID 4 para Icono
+    fetch('http://localhost:3000/cervezas/4') 
       .then((response) => response.json())
       .then((data) => {
-        setCervezas(data); // Guardamos las cervezas en el estado
-        setLoading(false); // Detenemos el estado de carga
+        setCervezas(data); 
+        setLoading(false); 
       })
       .catch((error) => {
         console.error('Error al obtener los datos:', error);
@@ -46,7 +45,7 @@ export default function IconoPage() {
         {/* Header Image */}
       </div>
       <div className="relative z-10">
-        {/* Restoring original Header Image */}
+     
         <div className="relative h-[300px] w-full">
           <img
             src="/images/icono.jpg" // Cambiar la imagen de encabezado a una para la cervecería Icono
@@ -77,9 +76,9 @@ export default function IconoPage() {
           </button>
         </div>
 
-        {/* Scrollable Content */}
+    
         <div className="max-w-4xl mx-auto p-4 space-y-8">
-          {/* Cervezas Section */}
+     
           <div ref={cervezaRef}>
             <h2 className="text-3xl font-bold mb-4 text-amber-500">Cervezas</h2>
             {cervezas.map((cerveza, index) => (

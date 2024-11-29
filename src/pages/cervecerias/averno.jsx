@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-
+import React, { useState, useEffect, useRef } from "react";
 
 export default function AvernoPage() {
   const cervezaRef = useRef(null);
@@ -11,24 +10,25 @@ export default function AvernoPage() {
   const [error, setError] = useState(null); // Estado para manejar errores
 
   const scrollToSection = (ref) => {
-    ref.current?.scrollIntoView({ behavior: 'smooth' });
+    ref.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   // Fetching data when component mounts
   useEffect(() => {
-    fetch('http://localhost:3000/cervezas/3') // Aquí se usa el ID 1 para Averno
+    fetch(`${import.meta.env.VITE_API_URL}/cervezas/3`) // Aquí se usa el ID 1 para Averno
       .then((response) => response.json())
       .then((data) => {
         setCervezas(data); // Guardamos las cervezas en el estado
         setLoading(false); // Detenemos el estado de carga
       })
       .catch((error) => {
-        console.error('Error al obtener los datos:', error);
-        setError('No se pudieron cargar los datos. Intente nuevamente más tarde.');
+        console.error("Error al obtener los datos:", error);
+        setError(
+          "No se pudieron cargar los datos. Intente nuevamente más tarde."
+        );
         setLoading(false);
       });
   }, []);
-  
 
   // Si está cargando, mostrar el mensaje
   if (loading) {
@@ -42,9 +42,7 @@ export default function AvernoPage() {
 
   return (
     <div className="relative min-h-screen w-screen bg-zinc-900 bg-cover bg-center text-white font-sans overflow-x-hidden">
-      <div className="absolute inset-0 z-0">
-        
-      </div>
+      <div className="absolute inset-0 z-0"></div>
       <div className="relative z-10">
         {/* Header Image */}
         <div className="relative h-[300px] w-full">
@@ -83,21 +81,26 @@ export default function AvernoPage() {
           <div ref={cervezaRef}>
             <h2 className="text-3xl font-bold mb-4 text-amber-500">Cervezas</h2>
             {cervezas.map((cerveza, index) => (
-              <div key={index} className="bg-black/60 backdrop-blur-sm rounded-lg overflow-hidden mb-4">
+              <div
+                key={index}
+                className="bg-black/60 backdrop-blur-sm rounded-lg overflow-hidden mb-4"
+              >
                 <div className="p-6 flex-1">
                   <h3 className="text-2xl font-bold mb-2">{cerveza.nombre}</h3>
-                  <p className="text-gray-200 text-lg">Estilo: {cerveza.estilo}</p>
+                  <p className="text-gray-200 text-lg">
+                    Estilo: {cerveza.estilo}
+                  </p>
                   <p className="text-gray-200 text-lg">Tipo: {cerveza.tipo}</p>
-                  <p className="text-gray-200 text-lg">Alcohol: {cerveza.porcentaje_alcohol}%</p>
-                  <p className="text-gray-200 text-lg">Precio: ${cerveza.precio}</p>
+                  <p className="text-gray-200 text-lg">
+                    Alcohol: {cerveza.porcentaje_alcohol}%
+                  </p>
+                  <p className="text-gray-200 text-lg">
+                    Precio: ${cerveza.precio}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
-
-         
-
-          
         </div>
       </div>
     </div>
