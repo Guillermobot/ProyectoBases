@@ -9,125 +9,62 @@ import {
   Check,
   X,
 } from "lucide-react";
-import AnimatedBackground from "../fondos/burbujas"; // Assuming AnimatedBackground component exists
-
-const IconButton = ({ icon, label, isActive, onClick }) => (
-  <button
-    onClick={onClick}
-    className={`flex flex-col items-center gap-1 h-auto py-2 px-3 rounded-md transition-colors ${
-      isActive
-        ? "bg-amber-100 text-amber-800"
-        : "text-gray-600 hover:bg-amber-50"
-    }`}
-  >
-    {icon}
-    <span className="text-xs">{label}</span>
-  </button>
-);
+import AnimatedBackground from "../fondos/burbujas";
 
 const StoutMenu = () => {
-  const [activeTab, setActiveTab] = useState("Inicio");
   const [selectedCerveceria, setSelectedCerveceria] = useState("");
   const [cervezas, setCervezas] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   // Datos de cervecerías
   const cervecerias = ["Averno", "Wendlandt", "Sarmiento", "Icono"];
 
-  // Función para obtener cervezas de cada cervecería con el switch case
-  const getCervezasByCerveceria = (cerveceria) => {
+  // Función para obtener la disponibilidad de cervezas
+  const getCervezasDisponibilidad = (cerveceria) => {
+    // Mapeo de cervecerías a sus IDs
+    const cerveceriaIds = {
+      Averno: 3,
+      Wendlandt: 1,
+      Sarmiento: 2,
+      Icono: 4,
+    };
+
+    const cerveceriaId = cerveceriaIds[cerveceria];
+
+    if (!cerveceriaId) {
+      setError("Cervecería no encontrada");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
-    switch (cerveceria) {
-      case "Averno":
-        fetch("http://localhost:3000/cervezas/3") // Cambiar ID según corresponda
-          .then((response) => response.json())
-          .then((data) => {
-            setCervezas(data);
-            setLoading(false);
-          })
-          .catch((error) => {
-            console.error("Error al obtener los datos:", error);
-            setError(
-              "No se pudieron cargar los datos. Intente nuevamente más tarde."
-            );
-            setLoading(false);
-          });
-        break;
-
-      case "Wendlandt":
-        fetch("http://localhost:3000/cervezas/1")
-          .then((response) => response.json())
-          .then((data) => {
-            setCervezas(data);
-            setLoading(false);
-          })
-          .catch((error) => {
-            console.error("Error al obtener los datos:", error);
-            setError(
-              "No se pudieron cargar los datos. Intente nuevamente más tarde."
-            );
-            setLoading(false);
-          });
-        break;
-
-      case "Sarmiento":
-        fetch("http://localhost:3000/cervezas/2")
-          .then((response) => response.json())
-          .then((data) => {
-            setCervezas(data);
-            setLoading(false);
-          })
-          .catch((error) => {
-            console.error("Error al obtener los datos:", error);
-            setError(
-              "No se pudieron cargar los datos. Intente nuevamente más tarde."
-            );
-            setLoading(false);
-          });
-        break;
-
-      case "Icono":
-        fetch("http://localhost:3000/cervezas/4")
-          .then((response) => response.json())
-          .then((data) => {
-            setCervezas(data);
-            setLoading(false);
-          })
-          .catch((error) => {
-            console.error("Error al obtener los datos:", error);
-            setError(
-              "No se pudieron cargar los datos. Intente nuevamente más tarde."
-            );
-            setLoading(false);
-          });
-        break;
-
-      default:
-        setCervezas([]);
+    fetch(`http://localhost:3000/cervezas/disponibilidad/${cerveceriaId}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setCervezas(data);
         setLoading(false);
-        break;
-    }
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos:", error);
+        setError(
+          "No se pudieron cargar los datos. Intente nuevamente más tarde."
+        );
+        setLoading(false);
+      });
   };
 
   // Función que maneja el cambio de cervecería
   const handleCerveceriaChange = (event) => {
     const selected = event.target.value;
     setSelectedCerveceria(selected);
-    getCervezasByCerveceria(selected);
-  };
-
-  // Función que alterna la disponibilidad de la cerveza
-  const toggleDisponibilidad = (id) => {
-    setCervezas((prevCervezas) =>
-      prevCervezas.map((cerveza) =>
-        cerveza.id === id
-          ? { ...cerveza, disponible: !cerveza.disponible }
-          : cerveza
-      )
-    );
+    getCervezasDisponibilidad(selected);
   };
 
   // Función para exportar la lista de cervezas a TXT
@@ -139,14 +76,14 @@ const StoutMenu = () => {
       txtContent += `Nombre: ${cerveza.nombre}\n`;
       txtContent += `Tipo: ${cerveza.tipo}\n`;
       txtContent += `Precio: $${cerveza.precio}\n`;
-      txtContent += `Disponible: ${cerveza.disponible ? "Sí" : "No"}\n\n`;
+      txtContent += `Disponibilidad: ${cerveza.disponibilidad}\n\n`;
     });
 
     // Crear un blob con el contenido TXT
     const blob = new Blob([txtContent], { type: "text/plain" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "cervezas.txt"; // Nombre del archivo
+    link.download = "cervezas.txt";
     link.click();
   };
 
@@ -162,44 +99,6 @@ const StoutMenu = () => {
               <span className="text-2xl font-bold text-amber-500">
                 RutaBrew
               </span>
-              <div className="flex space-x-1 md:space-x-2 overflow-x-auto">
-                <IconButton
-                  icon={<Home size={16} />}
-                  label="Inicio"
-                  isActive={activeTab === "Inicio"}
-                  onClick={() => setActiveTab("Inicio")}
-                />
-                <IconButton
-                  icon={<Map size={16} />}
-                  label="Explorar"
-                  isActive={activeTab === "Explorar"}
-                  onClick={() => setActiveTab("Explorar")}
-                />
-                <IconButton
-                  icon={<Star size={16} />}
-                  label="Favoritos"
-                  isActive={activeTab === "Favoritos"}
-                  onClick={() => setActiveTab("Favoritos")}
-                />
-                <IconButton
-                  icon={<Calendar size={16} />}
-                  label="Eventos"
-                  isActive={activeTab === "Eventos"}
-                  onClick={() => setActiveTab("Eventos")}
-                />
-                <IconButton
-                  icon={<User size={16} />}
-                  label="Perfil"
-                  isActive={activeTab === "Perfil"}
-                  onClick={() => setActiveTab("Perfil")}
-                />
-                <IconButton
-                  icon={<UserCircle size={16} />}
-                  label="Invitado"
-                  isActive={activeTab === "Invitado"}
-                  onClick={() => setActiveTab("Invitado")}
-                />
-              </div>
             </div>
           </div>
         </nav>
@@ -238,14 +137,15 @@ const StoutMenu = () => {
                     </h2>
                     <p className="text-sm text-gray-300">{cerveza.tipo}</p>
                     <p className="text-lg text-amber-500">${cerveza.precio}</p>
-                    <button
-                      onClick={() => toggleDisponibilidad(cerveza.id)}
+                    <div
                       className={`mt-2 p-2 rounded-md ${
-                        cerveza.disponible ? "bg-green-500" : "bg-red-500"
+                        cerveza.disponibilidad === "disponible"
+                          ? "bg-green-500"
+                          : "bg-red-500"
                       }`}
                     >
-                      {cerveza.disponible ? "Disponible" : "No disponible"}
-                    </button>
+                      {cerveza.disponibilidad}
+                    </div>
                   </div>
                 ))}
             </div>

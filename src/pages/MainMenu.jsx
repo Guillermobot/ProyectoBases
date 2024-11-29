@@ -72,32 +72,7 @@ const MainMenu = () => {
         <div className="   flex max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             <span className="text-2xl font-bold text-amber-500">RutaBrew</span>
-            <div className="flex space-x-1 md:space-x-2 overflow-x-auto">
-              <IconButton
-                icon={<Home size={16} />}
-                label="Inicio"
-                isActive={activeTab === "Inicio"}
-                onClick={() => navigate("/")}
-              />
-              <IconButton
-                icon={<Map size={16} />}
-                label="Explorar"
-                isActive={activeTab === "Explorar"}
-                onClick={() => setActiveTab("Explorar")}
-              />
-              <IconButton
-                icon={<Star size={16} />}
-                label="Favoritos"
-                isActive={activeTab === "Favoritos"}
-                onClick={() => setActiveTab("Favoritos")}
-              />
-              <IconButton
-                icon={<Calendar size={16} />}
-                label="Eventos"
-                isActive={activeTab === "Eventos"}
-                onClick={() => setActiveTab("Eventos")}
-              />
-            </div>
+            <div className="flex space-x-1 md:space-x-2 overflow-x-auto"></div>
           </div>
         </div>
       </nav>
@@ -128,7 +103,7 @@ const MainMenu = () => {
         </h1>
 
         <BeerOption
-          label="Reportes"
+          label="Comunidad"
           imageUrl="/images/reportes.jpg"
           onClick={() => navigate("/reportes")}
         />

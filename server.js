@@ -157,6 +157,67 @@ app.get("/cervezas/:cerveceriaId", (req, res) => {
   );
 });
 
+// New endpoint for beer availability
+app.get("/cervezas/disponibilidad/:cerveceriaId", (req, res) => {
+  const cerveceriaId = req.params.cerveceriaId;
+
+  db.query(
+    `SELECT 
+      id, 
+      nombre, 
+      tipo, 
+      precio, 
+      disponibilidad 
+    FROM cervezas 
+    WHERE cerveceria_id = ?`,
+    [cerveceriaId],
+    (err, results) => {
+      if (err) {
+        console.error("Error al obtener la disponibilidad:", err);
+        return res
+          .status(500)
+          .json({ error: "Error al obtener datos de disponibilidad" });
+      }
+      res.json(results);
+    }
+  );
+});
+
+app.get("/cervezas", (req, res) => {
+  const query = `
+    SELECT id, nombre, disponibilidad, precio
+    FROM cervezas
+    ORDER BY nombre ASC
+  `;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error("Error al obtener cervezas:", err);
+      return res
+        .status(500)
+        .json({ error: "Error al obtener los datos de cervezas" });
+    }
+    res.json(results);
+  });
+});
+
+// Ruta dinámica para obtener bebidas de una cervecería específica
+app.get("/bebidas/:cerveceriaId", (req, res) => {
+  const cerveceriaId = req.params.cerveceriaId;
+
+  db.query(
+    "SELECT nombre, tipo, precio, descripcion FROM bebidas WHERE cerveceria_id = ?",
+    [cerveceriaId],
+    (err, results) => {
+      if (err) {
+        console.error("Error al hacer la consulta:", err);
+        return res.status(500).send("Error al obtener las bebidas");
+      }
+      res.json(results);
+    }
+  );
+});
+
 // Ruta para obtener el promedio de calificaciones por cervecería
 app.get("/reportes/calificaciones", (req, res) => {
   const query = `
